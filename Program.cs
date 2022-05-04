@@ -1,8 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MusicPlaylist.Data;
+using MusicPlaylist.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddMvc();
+
+builder.Services.AddScoped<IPlaylistItemService, PlaylistItemService>();
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

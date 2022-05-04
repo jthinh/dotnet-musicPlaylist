@@ -1,0 +1,60 @@
+@model PlaylistViewModel
+@using Humanizer
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-success">My Playlist</h2>
+        </div>
+
+        <div class="col-6 text-end">
+            <a asp-controller="Playlist" asp-action="AddItem_" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp;
+                Add new song
+            </a>
+        </div>
+
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+
+                    <td>Song</td>
+                    <td>Artist</td>
+                    <td>Date Added</td>
+                    <td></td>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+
+                    <td width="40%">@item.Title</td>
+                    <td width="30%">@item.Artist</td>
+                    <td width="30%">@item.DueAt</td>
+
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+
+                            <a asp-controller="Playlist" asp-action="EditItem_" asp-route-id="@item.Id"
+                            class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i>
+                                Edit
+                            </a>
+
+                            <form asp-action="Delete" method="POST">
+                                <input name="id" value="@item.Id" hidden>
+                                <button type="submit" class="btn btn-danger mx-2"><i
+                                    class="bi bi-trash-fill"></i>Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
